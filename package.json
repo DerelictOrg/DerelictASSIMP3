@@ -1,0 +1,16 @@
+{
+    "name": "derelict-assimp3",
+    "description": "A dynamic binding to version 3 of the Assimp library.",
+    "homepage": "https://github.com/DerelictOrg/DerelictASSIMP3",
+    "license": "Boost",
+    "authors": [
+        "Mike Parker"
+    ],
+
+    "targetName": "DerelictASSIMP3",
+    "targetPath": "lib",
+
+    "dependencies": {
+        "derelict-util": "~master"
+    }
+}
