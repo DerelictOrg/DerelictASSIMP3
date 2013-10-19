@@ -43,7 +43,7 @@ struct aiMeshKey {
     uint mValue;
 }
 
-alias uint aiAnimBehaviour;
+alias aiAnimBehaviour = uint;
 enum : uint {
     aiAnimBehaviour_DEFAULT = 0x0,
     aiAnimBehaviour_CONSTANT = 0x1,
@@ -107,15 +107,15 @@ struct aiExportDataBlob {
 
 // cfileio.h
 extern( C ) nothrow {
-    alias size_t function( aiFile*, const( char )*, size_t, size_t ) aiFileWriteProc;
-    alias size_t function( aiFile*, char*, size_t, size_t ) aiFileReadProc;
-    alias size_t function( aiFile* ) aiFileTellProc;
-    alias void function( aiFile* ) aiFileFlushProc;
-    alias aiReturn function( aiFile*, size_t, aiOrigin ) aiFileSeek;
-    alias aiFile* function(  aiFileIO*, const( char )*, const( char )* ) aiFileOpenProc;
-    alias void function( aiFileIO*, aiFile* ) aiFileCloseProc;
+    alias aiFileWriteProc = size_t function( aiFile*, const( char )*, size_t, size_t );
+    alias aiFileReadProc = size_t function( aiFile*, char*, size_t, size_t );
+    alias aiFileTellProc = size_t function( aiFile* );
+    alias aiFileFlushProc = void function( aiFile* );
+    alias aiFileSeek = aiReturn function( aiFile*, size_t, aiOrigin );
+    alias aiFileOpenProc = aiFile* function(  aiFileIO*, const( char )*, const( char )* );
+    alias aiFileCloseProc = void function( aiFileIO*, aiFile* );
 }
-alias void* aiUserData;
+alias aiUserData = void*;
 
 struct aiFileIO {
     aiFileOpenProc OpenProc;
@@ -134,7 +134,7 @@ struct aiFile {
 }
 
 // cimport.h
-extern( C ) nothrow alias void function( const( char )*, char* ) aiLogStreamCallback;
+extern( C ) nothrow alias aiLogStreamCallback = void function( const( char )*, char* );
 
 struct aiLogStream {
     aiLogStreamCallback callback;
@@ -145,7 +145,7 @@ struct aiPropertyStore {
     char sentinel;
 }
 
-alias int aiBool;
+alias aiBool = int;
 
 enum AI_FALSE = 0,
      AI_TRUE = 1;
@@ -220,8 +220,8 @@ enum {
 }
 
 
-alias uint aiComponent;
-enum {
+alias aiComponent = uint;
+enum : uint {
     aiComponent_NORMALS = 0x2,
     aiComponent_TANGENTS_AND_BITANGENTS = 0x4,
     aiComponent_COLORS = 0x8,
@@ -244,7 +244,7 @@ uint aiComponent_TEXCOORDSn( uint n ) {
 }
 
 // light.h
-alias uint aiLightSourceType;
+alias aiLightSourceType = uint;
 enum : uint {
     aiLightSourceType_UNDEFINED = 0x0,
     aiLightSourceType_DIRECTIONAL = 0x1,
@@ -269,7 +269,7 @@ struct aiLight {
 // material.h
 enum AI_DEFAULT_MATERIAL_NAME = "DefaultMaterial";
 
-alias uint aiTextureOp;
+alias aiTextureOp = uint;
 enum : uint {
     aiTextureOp_Multiply = 0x0,
     aiTextureOp_Add = 0x1,
@@ -279,7 +279,7 @@ enum : uint {
     aiTextureOp_SignedAdd = 0x5,
 }
 
-alias uint aiTextureMapMode;
+alias aiTextureMapMode = uint;
 enum : uint {
     aiTextureMapMode_Wrap = 0x0,
     aiTextureMapMode_Clamp = 0x1,
@@ -287,7 +287,7 @@ enum : uint {
     aiTextureMapMode_Mirror = 0x2,
 }
 
-alias uint aiTextureMapping;
+alias aiTextureMapping = uint;
 enum : uint {
     aiTextureMapping_UV = 0x0,
     aiTextureMapping_SPHERE = 0x1,
@@ -297,7 +297,7 @@ enum : uint {
     aiTextureMapping_OTHER = 0x5,
 }
 
-alias uint aiTextureType;
+alias aiTextureType = uint;
 enum : uint {
     aiTextureType_NONE = 0x0,
     aiTextureType_DIFFUSE = 0x1,
@@ -314,7 +314,7 @@ enum : uint {
     aiTextureType_UNKNOWN = 0xC,
 }
 
-alias uint aiShadingMode;
+alias aiShadingMode = uint;
 enum : uint {
     aiShadingMode_Flat = 0x1,
     aiShadingMode_Gouraud = 0x2,
@@ -328,14 +328,14 @@ enum : uint {
     aiShadingMode_Fresnel = 0xA,
 }
 
-alias uint aiTextureFlags;
+alias aiTextureFlags = uint;
 enum : uint {
     aiTextureFlags_Invert = 0x1,
     aiTextureFlags_UseAlpha = 0x2,
     aiTextureFlags_IgnoreAlpha = 0x4,
 }
 
-alias uint aiBlendMode;
+alias aiBlendMode = uint;
 enum : uint {
     aiBlendMode_Default = 0x0,
     aiBlendMode_Additive = 0x1,
@@ -346,7 +346,7 @@ align(1) struct aiUVTransform {
     aiVector2D mScaling;
 }
 
-alias uint aiPropertyTypeInfo;
+alias aiPropertyTypeInfo = uint;
 enum : uint {
     aiPTI_Float = 0x1,
     aiPTI_String = 0x3,
@@ -440,7 +440,7 @@ struct aiBone {
     aiMatrix4x4 mOffsetMatrix;
 }
 
-alias uint aiPrimitiveType;
+alias aiPrimitiveType = uint;
 enum : uint {
     aiPrimitiveType_POINT = 0x1,
     aiPrimitiveType_LINE = 0x2,
@@ -480,7 +480,7 @@ struct aiMesh {
 }
 
 // postprocess.h
-alias uint aiPostProcessSteps;
+alias aiPostProcessSteps = uint;
 enum : uint {
     aiProcess_CalcTangentSpace = 0x1,
     aiProcess_JoinIndenticalVertices = 0x2,
@@ -606,21 +606,21 @@ struct aiString {
     char data[MAXLEN];
 }
 
-alias int aiReturn;
+alias aiReturn = int;
 enum {
     aiReturn_SUCCESS = 0x0,
     aiReturn_FAILURE = -0x1,
     aiReturn_OUTOFMEMORY = -0x3,
 }
 
-alias uint aiOrigin;
+alias aiOrigin = uint;
 enum : uint {
     aiOrigin_SET = 0x0,
     aiOrigin_CUR = 0x1,
     aiOrigin_END = 0x2,
 }
 
-alias uint aiDefaultLogStream;
+alias aiDefaultLogStream = uint;
 enum : uint {
     aiDefaultLogStream_FILE = 0x1,
     aiDefaultLogStream_STDOUT = 0x2,
@@ -641,8 +641,10 @@ struct aiMemoryInfo {
 
 // version.h
 
-enum ASSIMP_CFLAGS_SHARED = 0x1,
-     ASSIMP_CFLAGS_STLPORT = 0x2,
-     ASSIMP_CFLAGS_DEBUG = 0x4,
-     ASSIMP_CFLAGS_NOBOOST = 0x8,
-     ASSIMP_CFLAGS_SINGLETHREADED = 0x10;
+enum  {
+    ASSIMP_CFLAGS_SHARED = 0x1,
+    ASSIMP_CFLAGS_STLPORT = 0x2,
+    ASSIMP_CFLAGS_DEBUG = 0x4,
+    ASSIMP_CFLAGS_NOBOOST = 0x8,
+    ASSIMP_CFLAGS_SINGLETHREADED = 0x10,
+}
