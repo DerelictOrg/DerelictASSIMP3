@@ -453,7 +453,7 @@ struct aiAnimMesh {
     aiVector3D* mVertices;
     aiVector3D* mNormals;
     aiVector3D* mTangents;
-    aiVector3D* mBitTangents;
+    aiVector3D* mBitangents;
     aiColor4D*[AI_MAX_NUMBER_OF_COLOR_SETS] mColors;
     aiVector3D*[AI_MAX_NUMBER_OF_TEXTURECOORDS] mTextureCoords;
     uint mNumVertices;
@@ -466,7 +466,7 @@ struct aiMesh {
     aiVector3D* mVertices;
     aiVector3D* mNormals;
     aiVector3D* mTangents;
-    aiVector3D* mBitTangents;
+    aiVector3D* mBitangents;
     aiColor4D*[AI_MAX_NUMBER_OF_COLOR_SETS] mColors;
     aiVector3D*[AI_MAX_NUMBER_OF_TEXTURECOORDS] mTextureCoords;
     uint[AI_MAX_NUMBER_OF_TEXTURECOORDS] mNumUVComponents;
