@@ -483,7 +483,7 @@ struct aiMesh {
 alias aiPostProcessSteps = uint;
 enum : uint {
     aiProcess_CalcTangentSpace = 0x1,
-    aiProcess_JoinIndenticalVertices = 0x2,
+    aiProcess_JoinIdenticalVertices = 0x2,
     aiProcess_MakeLeftHanded = 0x4,
     aiProcess_Triangulate = 0x8,
     aiProcess_RemoveComponent = 0x10,
@@ -511,9 +511,9 @@ enum : uint {
 
     aiProcess_ConvertToLeftHanded = aiProcess_MakeLeftHanded | aiProcess_FlipUVs | aiProcess_FlipWindingOrder | 0,
     aiProcessPreset_TargetRealtime_Fast = aiProcess_CalcTangentSpace | aiProcess_GenNormals |
-        aiProcess_JoinIndenticalVertices | aiProcess_Triangulate | aiProcess_GenUVCoords |
+        aiProcess_JoinIdenticalVertices | aiProcess_Triangulate | aiProcess_GenUVCoords |
         aiProcess_SortByPType | 0,
-    aiProcessPreset_TargetRealtime_Quality = aiProcess_CalcTangentSpace | aiProcess_GenSmoothNormals | aiProcess_JoinIndenticalVertices |
+    aiProcessPreset_TargetRealtime_Quality = aiProcess_CalcTangentSpace | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices |
         aiProcess_ImproveCacheLocality | aiProcess_LimitBoneWeights | aiProcess_RemoveRedundantMaterials |
         aiProcess_SplitLargeMeshes | aiProcess_Triangulate | aiProcess_GenUVCoords | aiProcess_SortByPType |
         aiProcess_FindDegenerates | aiProcess_FindInvalidData | 0,
