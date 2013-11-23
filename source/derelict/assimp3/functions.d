@@ -87,7 +87,7 @@ extern( C ) nothrow {
     alias aiReturn function( const( aiMaterial)*, const( char )*, uint, uint, aiColor4D* ) da_aiGetMaterialColor;
     alias aiReturn function( const( aiMaterial)*, const( char )*, uint, uint, aiString* ) da_aiGetMaterialString;
     alias uint function( const( aiMaterial )*, aiTextureType ) da_aiGetMaterialTextureCount;
-    alias aiReturn function( aiTextureType, uint, aiString*, aiTextureMapping* m=null, uint* uvindex = null, float* blend = null, aiTextureOp* op = null, aiTextureMapMode* mm = null, uint* flags = null ) da_aiGetMaterialTexture;
+    alias aiReturn function( const( aiMaterial )*, aiTextureType, uint, aiString*, aiTextureMapping* m=null, uint* uvindex = null, float* blend = null, aiTextureOp* op = null, aiTextureMapMode* mm = null, uint* flags = null ) da_aiGetMaterialTexture;
 
     // version.h
     alias nothrow const(char)* function() da_aiGetLegalString;

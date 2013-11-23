@@ -52,10 +52,10 @@ enum : uint {
 }
 
 struct aiNodeAnim {
-    aiString nNodeName;
+    aiString mNodeName;
     uint mNumPositionKeys;
     aiVectorKey* mPositionKeys;
-    uint numRotationKeys;
+    uint mNumRotationKeys;
     aiQuatKey* mRotationKeys;
     uint mNumScalingKeys;
     aiVectorKey* mScalingKeys;
@@ -73,7 +73,7 @@ struct aiAnimation {
     aiString mName;
     double mDuration;
     double mTicksPerSecond;
-    uint nNumChannels;
+    uint mNumChannels;
     aiNodeAnim** mChannels;
     uint mNumMeshChannels;
     aiMeshAnim** mMeshChannels;
@@ -424,7 +424,7 @@ enum AI_MAX_NUMBER_OF_COLOR_SETS = 0x8;
 enum AI_MAX_NUMBER_OF_TEXTURECOORDS = 0x8;
 
 struct aiFace {
-    uint numIndices;
+    uint mNumIndices;
     uint* mIndices;
 }
 
@@ -473,7 +473,7 @@ struct aiMesh {
     aiFace* mFaces;
     uint mNumBones;
     aiBone** mBones;
-    uint nMaterialIndex;
+    uint mMaterialIndex;
     aiString mName;
     uint mNumAnimMeshes;
     aiAnimMesh** mAnimMeshes;
