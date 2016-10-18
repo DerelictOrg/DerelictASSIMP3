@@ -93,9 +93,9 @@ struct aiCamera {
 
 // cexport.h
 struct aiExportFormatDesc {
-    const( char )* id;
-    const( char )* description;
-    const( char )* fileExtension;
+    const(char)* id;
+    const(char)* description;
+    const(char)* fileExtension;
 }
 
 struct aiExportDataBlob {
@@ -106,14 +106,14 @@ struct aiExportDataBlob {
 }
 
 // cfileio.h
-extern( C ) nothrow {
-    alias aiFileWriteProc = size_t function( aiFile*, const( char )*, size_t, size_t );
-    alias aiFileReadProc = size_t function( aiFile*, char*, size_t, size_t );
-    alias aiFileTellProc = size_t function( aiFile* );
-    alias aiFileFlushProc = void function( aiFile* );
-    alias aiFileSeek = aiReturn function( aiFile*, size_t, aiOrigin );
-    alias aiFileOpenProc = aiFile* function(  aiFileIO*, const( char )*, const( char )* );
-    alias aiFileCloseProc = void function( aiFileIO*, aiFile* );
+extern(C) nothrow {
+    alias aiFileWriteProc = size_t function(aiFile*, const(char)*, size_t, size_t);
+    alias aiFileReadProc = size_t function(aiFile*, char*, size_t, size_t);
+    alias aiFileTellProc = size_t function(aiFile*);
+    alias aiFileFlushProc = void function(aiFile*);
+    alias aiFileSeek = aiReturn function(aiFile*, size_t, aiOrigin);
+    alias aiFileOpenProc = aiFile* function( aiFileIO*, const(char)*, const(char)*);
+    alias aiFileCloseProc = void function(aiFileIO*, aiFile*);
 }
 alias aiUserData = void*;
 
@@ -134,7 +134,7 @@ struct aiFile {
 }
 
 // cimport.h
-extern( C ) nothrow alias aiLogStreamCallback = void function( const( char )*, char* );
+extern(C) nothrow alias aiLogStreamCallback = void function(const(char)*, char*);
 
 struct aiLogStream {
     aiLogStreamCallback callback;
@@ -235,12 +235,12 @@ enum : uint {
     aiComponent_MATERIALS = 0x800,
 }
 
-uint aiComponent_COLORSn( uint n ) {
-    return ( 1u << ( n+20u ));
+uint aiComponent_COLORSn(uint n) {
+    return (1u << (n+20u));
 }
 
-uint aiComponent_TEXCOORDSn( uint n ) {
-    return ( 1u << ( n+25u ));
+uint aiComponent_TEXCOORDSn(uint n) {
+    return (1u << (n+25u));
 }
 
 // light.h
