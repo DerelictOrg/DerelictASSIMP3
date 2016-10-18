@@ -61,68 +61,72 @@ aiReturn aiGetMaterialInteger(const(aiMaterial)* mat, const(char)* key, uint typ
 
 extern(C) nothrow {
     // cexport.h
-    alias size_t function() da_aiGetExportFormatCount;
-    alias aiExportFormatDesc* function(size_t) da_aiGetExportFormatDescription;
-    alias void function(const(aiScene)*,aiScene**) da_aiCopyScene;
-    alias aiReturn function(const(aiScene)*,const(char)*,const(char)*,uint ) da_aiExportScene;
-    alias aiReturn function(const(aiScene)*,const(char)*,const(char)*,aiFileIO*,uint) da_aiExportSceneEx;
-    alias const(aiExportDataBlob)* function(const(aiScene)*,const(char)*,uint) da_aiExportSceneToBlob;
-    alias void function(const(aiExportDataBlob)*) da_aiReleaseExportBlob;
+    alias da_aiGetExportFormatCount = size_t function();
+    alias da_aiGetExportFormatDescription = aiExportFormatDesc* function(size_t);
+    alias da_aiCopyScene = void function(const(aiScene)*,aiScene**);
+    alias da_aiFreeScene = void function(const(aiScene)*);
+    alias da_aiExportScene = aiReturn function(const(aiScene)*,const(char)*,const(char)*,uint );
+    alias da_aiExportSceneEx = aiReturn function(const(aiScene)*,const(char)*,const(char)*,aiFileIO*,uint);
+    alias da_aiExportSceneToBlob = const(aiExportDataBlob)* function(const(aiScene)*,const(char)*,uint);
+    alias da_aiReleaseExportBlob = void function(const(aiExportDataBlob)*);
 
     // cimport.h
-    alias const(aiScene*) function(const(char)*,uint) da_aiImportFile;
-    alias const(aiScene*) function(const(char)*,uint,aiFileIO*) da_aiImportFileEx;
-    alias const(aiScene*) function(const(char)*,uint,aiFileIO*,const(aiPropertyStore)*) da_aiImportFileExWithProperties;
-    alias const(aiScene*) function(const(void)*,uint,uint,const(char)*) da_aiImportFileFromMemory;
-    alias const(aiScene*) function(const(void)*,uint,uint,const(char)*,const(aiPropertyStore)*) da_aiImportFileFromMemoryWithProperties;
-    alias const(aiScene*) function(const(aiScene*),uint) da_aiApplyPostProcessing;
-    alias aiLogStream function(aiDefaultLogStream,const(char)*) da_aiGetPredefinedLogStream;
-    alias void function(const(aiLogStream)*) da_aiAttachLogStream;
-    alias void function(aiBool) da_aiEnableVerboseLogging;
-    alias aiReturn function(const(aiLogStream)*) da_aiDetachLogStream;
-    alias void function() da_aiDetachAllLogStreams;
-    alias void function(const(aiScene)*) da_aiReleaseImport;
-    alias const(char)* function() da_aiGetErrorString;
-    alias aiBool function(const(char)*) da_aiIsExtensionSupported;
-    alias void function(aiString*) da_aiGetExtensionList;
-    alias void function(const(aiScene)*,aiMemoryInfo*) da_aiGetMemoryRequirements;
-    alias aiPropertyStore* function() da_aiCreatePropertyStore;
-    alias void function(aiPropertyStore*) da_aiReleasePropertyStore;
-    alias void function(aiPropertyStore*,const(char)*,int) da_aiSetImportPropertyInteger;
-    alias void function(aiPropertyStore*,const(char)*,float) da_aiSetImportPropertyFloat;
-    alias void function(aiPropertyStore*,const(char)*,const(aiString)*) da_aiSetImportPropertyString;
-    alias void function(aiQuaternion*,const(aiMatrix3x3)*) da_aiCreateQuaternionFromMatrix;
-    alias void function(const(aiMatrix4x4)*,aiVector3D*,aiQuaternion*,aiVector3D*) da_aiDecomposeMatrix;
-    alias void function(aiMatrix4x4*) da_aiTransposeMatrix4;
-    alias void function(aiMatrix3x3*) da_aiTransposeMatrix3;
-    alias void function(aiVector3D*,const(aiMatrix3x3)*) da_aiTransformVecByMatrix3;
-    alias void function(aiVector3D*,const(aiMatrix4x4)*) da_aiTransformVecByMatrix4;
-    alias void function(aiMatrix4x4*,const(aiMatrix4x4)*) da_aiMultiplyMatrix4;
-    alias void function(aiMatrix3x3*,const(aiMatrix3x3)*) da_aiMultiplyMatrix3;
-    alias void function(aiMatrix3x3*) da_aiIdentityMatrix3;
-    alias void function(aiMatrix4x4*) da_aiIdentityMatrix4;
+    alias da_aiImportFile = const(aiScene*) function(const(char)*,uint);
+    alias da_aiImportFileEx = const(aiScene*) function(const(char)*,uint,aiFileIO*);
+    alias da_aiImportFileExWithProperties = const(aiScene*) function(const(char)*,uint,aiFileIO*,const(aiPropertyStore)*);
+    alias da_aiImportFileFromMemory = const(aiScene*) function(const(void)*,uint,uint,const(char)*);
+    alias da_aiImportFileFromMemoryWithProperties = const(aiScene*) function(const(void)*,uint,uint,const(char)*,const(aiPropertyStore)*);
+    alias da_aiApplyPostProcessing = const(aiScene*) function(const(aiScene*),uint);
+    alias da_aiGetPredefinedLogStream = aiLogStream function(aiDefaultLogStream,const(char)*);
+    alias da_aiAttachLogStream = void function(const(aiLogStream)*);
+    alias da_aiEnableVerboseLogging = void function(aiBool);
+    alias da_aiDetachLogStream = aiReturn function(const(aiLogStream)*);
+    alias da_aiDetachAllLogStreams = void function();
+    alias da_aiReleaseImport = void function(const(aiScene)*);
+    alias da_aiGetErrorString = const(char)* function();
+    alias da_aiIsExtensionSupported = aiBool function(const(char)*);
+    alias da_aiGetExtensionList = void function(aiString*);
+    alias da_aiGetMemoryRequirements = void function(const(aiScene)*,aiMemoryInfo*);
+    alias da_aiCreatePropertyStore = aiPropertyStore* function();
+    alias da_aiReleasePropertyStore = void function(aiPropertyStore*);
+    alias da_aiSetImportPropertyInteger = void function(aiPropertyStore*,const(char)*,int);
+    alias da_aiSetImportPropertyFloat = void function(aiPropertyStore*,const(char)*,float);
+    alias da_aiSetImportPropertyString = void function(aiPropertyStore*,const(char)*,const(aiString)*);
+    alias da_aiSetImportPropertyMatrix = void function(aiPropertyStore*,const(char)*,aiMatrix4x4*);
+    alias da_aiCreateQuaternionFromMatrix = void function(aiQuaternion*,const(aiMatrix3x3)*);
+    alias da_aiDecomposeMatrix = void function(const(aiMatrix4x4)*,aiVector3D*,aiQuaternion*,aiVector3D*);
+    alias da_aiTransposeMatrix4 = void function(aiMatrix4x4*);
+    alias da_aiTransposeMatrix3 = void function(aiMatrix3x3*);
+    alias da_aiTransformVecByMatrix3 = void function(aiVector3D*,const(aiMatrix3x3)*);
+    alias da_aiTransformVecByMatrix4 = void function(aiVector3D*,const(aiMatrix4x4)*);
+    alias da_aiMultiplyMatrix4 = void function(aiMatrix4x4*,const(aiMatrix4x4)*);
+    alias da_aiMultiplyMatrix3 = void function(aiMatrix3x3*,const(aiMatrix3x3)*);
+    alias da_aiIdentityMatrix3 = void function(aiMatrix3x3*);
+    alias da_aiIdentityMatrix4 = void function(aiMatrix4x4*);
 
     // material.h
-    alias aiReturn function(const(aiMaterial)*,const(char)*,uint,uint,aiMaterialProperty**) da_aiGetMaterialProperty;
-    alias aiReturn function(const(aiMaterial)*,const(char)*,uint,uint,float*,uint*) da_aiGetMaterialFloatArray;
-    alias aiReturn function(const(aiMaterial)*,const(char)*,uint,uint,int*,uint*) da_aiGetMaterialIntegerArray;
-    alias aiReturn function(const(aiMaterial)*,const(char)*,uint,uint,aiColor4D*) da_aiGetMaterialColor;
-    alias aiReturn function(const(aiMaterial)*,const(char)*,uint,uint,aiString*) da_aiGetMaterialString;
-    alias uint function(const(aiMaterial)*,aiTextureType) da_aiGetMaterialTextureCount;
-    alias aiReturn function(const(aiMaterial)*,aiTextureType,uint,aiString*,aiTextureMapping* m=null,uint* uvindex = null,float* blend = null,aiTextureOp* op = null,aiTextureMapMode* mm = null,uint* flags = null) da_aiGetMaterialTexture;
+    alias da_aiGetMaterialProperty = aiReturn function(const(aiMaterial)*,const(char)*,uint,uint,aiMaterialProperty**);
+    alias da_aiGetMaterialFloatArray = aiReturn function(const(aiMaterial)*,const(char)*,uint,uint,float*,uint*);
+    alias da_aiGetMaterialIntegerArray = aiReturn function(const(aiMaterial)*,const(char)*,uint,uint,int*,uint*);
+    alias da_aiGetMaterialColor = aiReturn function(const(aiMaterial)*,const(char)*,uint,uint,aiColor4D*);
+    alias da_aiGetMaterialUVTransform = aiReturn function(const(aiMaterial)*,const(char)*,uint,uint,aiUVTransform*);
+    alias da_aiGetMaterialString = aiReturn function(const(aiMaterial)*,const(char)*,uint,uint,aiString*);
+    alias da_aiGetMaterialTextureCount = uint function(const(aiMaterial)*,aiTextureType);
+    alias da_aiGetMaterialTexture = aiReturn function(const(aiMaterial)*,aiTextureType,uint,aiString*,aiTextureMapping* m=null,uint* uvindex = null,float* blend = null,aiTextureOp* op = null,aiTextureMapMode* mm = null,uint* flags = null);
 
     // version.h
-    alias nothrow const(char)* function() da_aiGetLegalString;
-    alias nothrow uint function() da_aiGetVersionMinor;
-    alias nothrow uint function() da_aiGetVersionMajor;
-    alias nothrow uint function() da_aiGetVersionRevision;
-    alias nothrow uint function() da_aiGetCompileFlags;
+    alias da_aiGetLegalString = nothrow function(char)* function();
+    alias da_aiGetVersionMinor = nothrow function();
+    alias da_aiGetVersionMajor = nothrow function();
+    alias da_aiGetVersionRevision = nothrow function();
+    alias da_aiGetCompileFlags = nothrow function();
 }
 
 __gshared {
     da_aiGetExportFormatCount aiGetExportFormatCount;
     da_aiGetExportFormatDescription aiGetExportFormatDescription;
     da_aiCopyScene aiCopyScene;
+    da_aiFreeScene aiFreeScene;
     da_aiExportScene aiExportScene;
     da_aiExportSceneEx aiExportSceneEx;
     da_aiExportSceneToBlob aiExportSceneToBlob;
@@ -148,6 +152,7 @@ __gshared {
     da_aiSetImportPropertyInteger aiSetImportPropertyInteger;
     da_aiSetImportPropertyFloat aiSetImportPropertyFloat;
     da_aiSetImportPropertyString aiSetImportPropertyString;
+    da_aiSetImportPropertyMatrix aiSetImportPropertyMatrix;
     da_aiCreateQuaternionFromMatrix aiCreateQuaternionFromMatrix;
     da_aiDecomposeMatrix aiDecomposeMatrix;
     da_aiTransposeMatrix4 aiTransposeMatrix4;
@@ -181,6 +186,7 @@ class DerelictASSIMP3Loader : SharedLibLoader {
         bindFunc(cast(void**)&aiGetExportFormatCount, "aiGetExportFormatCount");
         bindFunc(cast(void**)&aiGetExportFormatDescription, "aiGetExportFormatDescription");
         bindFunc(cast(void**)&aiCopyScene, "aiCopyScene");
+        bindFunc(cast(void**)&aiFreeScene, "aiFreeScene");
         bindFunc(cast(void**)&aiExportScene, "aiExportScene");
         bindFunc(cast(void**)&aiExportSceneEx, "aiExportSceneEx");
         bindFunc(cast(void**)&aiExportSceneToBlob, "aiExportSceneToBlob");
@@ -206,6 +212,7 @@ class DerelictASSIMP3Loader : SharedLibLoader {
         bindFunc(cast(void**)&aiSetImportPropertyInteger, "aiSetImportPropertyInteger");
         bindFunc(cast(void**)&aiSetImportPropertyFloat, "aiSetImportPropertyFloat");
         bindFunc(cast(void**)&aiSetImportPropertyString, "aiSetImportPropertyString");
+        bindFunc(cast(void**)&aiSetImportPropertyMatrix, "aiSetImportPropertyMatrix");
         bindFunc(cast(void**)&aiCreateQuaternionFromMatrix, "aiCreateQuaternionFromMatrix");
         bindFunc(cast(void**)&aiDecomposeMatrix, "aiDecomposeMatrix");
         bindFunc(cast(void**)&aiTransposeMatrix4, "aiTransposeMatrix4");
