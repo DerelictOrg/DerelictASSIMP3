@@ -344,6 +344,7 @@ enum : uint {
 align(1) struct aiUVTransform {
     aiVector2D mTranslation;
     aiVector2D mScaling;
+    float mRotation;
 }
 
 alias aiPropertyTypeInfo = uint;
