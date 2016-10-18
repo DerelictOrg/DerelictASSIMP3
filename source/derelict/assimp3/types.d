@@ -219,6 +219,28 @@ enum {
     AI_UVTRAFO_ALL = AI_UVTRAFO_SCALING | AI_UVTRAFO_ROTATION | AI_UVTRAFO_TRANSLATION,
 }
 
+// importerdesc.h
+alias aiImporterFlags = int;
+enum {
+    aiImporterFlags_SupportTextFlavour = 0x1,
+    aiImporterFlags_SupportBinaryFlavour = 0x2,
+    aiImporterFlags_SupportCompressedFlavour = 0x4,
+    aiImporterFlags_LimitedSupport = 0x8,
+    aiImporterFlags_Experimental = 0x10,
+}
+
+struct aiImporterDesc {
+    const(char)* mName;
+    const(char)* mAuthor;
+    const(char)* mMaintainer;
+    const(char)* mComments;
+    uint mFlags;
+    uint mMinMajor;
+    uint mMinMinor;
+    uint mMaxMajor;
+    uint mMaxMinor;
+    const(char)* mFileExtensions;
+}
 
 alias aiComponent = uint;
 enum : uint {

@@ -59,7 +59,7 @@ aiReturn aiGetMaterialInteger(const(aiMaterial)* mat, const(char)* key, uint typ
     return aiGetMaterialIntegerArray(mat, key, type, index, _out, null);
 }
 
-extern(C) nothrow {
+extern(C) @nogc nothrow {
     // cexport.h
     alias size_t function() da_aiGetExportFormatCount;
     alias aiExportFormatDesc* function(size_t) da_aiGetExportFormatDescription;
@@ -112,11 +112,11 @@ extern(C) nothrow {
     alias aiReturn function(const(aiMaterial)*,aiTextureType,uint,aiString*,aiTextureMapping* m=null,uint* uvindex = null,float* blend = null,aiTextureOp* op = null,aiTextureMapMode* mm = null,uint* flags = null) da_aiGetMaterialTexture;
 
     // version.h
-    alias nothrow const(char)* function() da_aiGetLegalString;
-    alias nothrow uint function() da_aiGetVersionMinor;
-    alias nothrow uint function() da_aiGetVersionMajor;
-    alias nothrow uint function() da_aiGetVersionRevision;
-    alias nothrow uint function() da_aiGetCompileFlags;
+    alias const(char)* function() da_aiGetLegalString;
+    alias uint function() da_aiGetVersionMinor;
+    alias uint function() da_aiGetVersionMajor;
+    alias uint function() da_aiGetVersionRevision;
+    alias uint function() da_aiGetCompileFlags;
 }
 
 __gshared {
