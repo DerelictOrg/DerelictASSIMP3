@@ -59,7 +59,7 @@ aiReturn aiGetMaterialInteger(const(aiMaterial)* mat, const(char)* key, uint typ
     return aiGetMaterialIntegerArray(mat, key, type, index, _out, null);
 }
 
-extern(C) nothrow {
+extern(C) @nogc nothrow {
     // cexport.h
     alias da_aiGetExportFormatCount = size_t function();
     alias da_aiGetExportFormatDescription = aiExportFormatDesc* function(size_t);
