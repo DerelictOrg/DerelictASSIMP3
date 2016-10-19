@@ -232,29 +232,6 @@ enum {
     AI_UVTRAFO_ALL = AI_UVTRAFO_SCALING | AI_UVTRAFO_ROTATION | AI_UVTRAFO_TRANSLATION,
 }
 
-// importerdesc.h
-alias aiImporterFlags = int;
-enum {
-    aiImporterFlags_SupportTextFlavour = 0x1,
-    aiImporterFlags_SupportBinaryFlavour = 0x2,
-    aiImporterFlags_SupportCompressedFlavour = 0x4,
-    aiImporterFlags_LimitedSupport = 0x8,
-    aiImporterFlags_Experimental = 0x10,
-}
-
-struct aiImporterDesc {
-    const(char)* mName;
-    const(char)* mAuthor;
-    const(char)* mMaintainer;
-    const(char)* mComments;
-    uint mFlags;
-    uint mMinMajor;
-    uint mMinMinor;
-    uint mMaxMajor;
-    uint mMaxMinor;
-    const(char)* mFileExtensions;
-}
-
 alias aiComponent = uint;
 enum : uint {
     aiComponent_NORMALS = 0x2,
@@ -278,6 +255,29 @@ uint aiComponent_TEXCOORDSn(uint n) {
     return (1u << (n+25u));
 }
 
+// importerdesc.h
+alias aiImporterFlags = int;
+enum {
+    aiImporterFlags_SupportTextFlavour = 0x1,
+    aiImporterFlags_SupportBinaryFlavour = 0x2,
+    aiImporterFlags_SupportCompressedFlavour = 0x4,
+    aiImporterFlags_LimitedSupport = 0x8,
+    aiImporterFlags_Experimental = 0x10,
+}
+
+struct aiImporterDesc {
+    const(char)* mName;
+    const(char)* mAuthor;
+    const(char)* mMaintainer;
+    const(char)* mComments;
+    uint mFlags;
+    uint mMinMajor;
+    uint mMinMinor;
+    uint mMaxMajor;
+    uint mMaxMinor;
+    const(char)* mFileExtensions;
+}
+
 // light.h
 alias aiLightSourceType = uint;
 enum : uint {
@@ -298,6 +298,7 @@ struct aiLight {
     aiColor3D mColorDiffuse;
     aiColor3D mColorSpecular;
     aiColor3D mColorAmbient;
+    float mAngleInnerCone;
     float mAngleOuterCone;
 }
 
@@ -515,6 +516,37 @@ struct aiMesh {
     aiAnimMesh** mAnimMeshes;
 }
 
+// metadata.h
+alias aiMetadataType = int;
+enum {
+    AI_BOOL = 0,
+    AI_INT = 1,
+    AI_UINT64 = 2,
+    AI_FLOAT = 3,
+    AI_AISTRING = 4,
+    AI_AIVECTOR3D = 5,
+}
+
+struct aiMetadataEntry {
+    aiMetadataType mType;
+    void* mData;
+}
+
+@nogc pure nothrow {
+    aiMetadataType GetAiType(bool) { return AI_BOOL; }
+    aiMetadataType GetAiType(int) { return AI_INT; }
+    aiMetadataType GetAiType(ulong) { return AI_UINT64; }
+    aiMetadataType GetAiType(float) { return AI_FLOAT; }
+    aiMetadataType GetAiType(aiString) { return AI_AISTRING; }
+    aiMetadataType GetAiType(aiVector3D) { return AI_AIVECTOR3D; }
+}
+
+struct aiMetadata {
+    uint mNumProperties;
+    aiString* mKeys;
+    aiMetadataEntry* mValues;
+}
+
 // postprocess.h
 alias aiPostProcessSteps = uint;
 enum : uint {
@@ -583,6 +615,7 @@ struct aiNode {
     aiNode** mChildren;
     uint mNumMeshes;
     uint* mMeshes;
+    aiMetadata* mMetaData;
 }
 
 enum {
@@ -603,7 +636,7 @@ struct aiScene {
     uint mNumAnimations;
     aiAnimation** mAnimations;
     uint mNumTextures;
-    aiTexture** mTexture;
+    aiTexture** mTextures;
     uint mNumLights;
     aiLight** mLights;
     uint mNumCameras;
