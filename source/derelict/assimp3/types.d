@@ -219,29 +219,6 @@ enum {
     AI_UVTRAFO_ALL = AI_UVTRAFO_SCALING | AI_UVTRAFO_ROTATION | AI_UVTRAFO_TRANSLATION,
 }
 
-// importerdesc.h
-alias aiImporterFlags = int;
-enum {
-    aiImporterFlags_SupportTextFlavour = 0x1,
-    aiImporterFlags_SupportBinaryFlavour = 0x2,
-    aiImporterFlags_SupportCompressedFlavour = 0x4,
-    aiImporterFlags_LimitedSupport = 0x8,
-    aiImporterFlags_Experimental = 0x10,
-}
-
-struct aiImporterDesc {
-    const(char)* mName;
-    const(char)* mAuthor;
-    const(char)* mMaintainer;
-    const(char)* mComments;
-    uint mFlags;
-    uint mMinMajor;
-    uint mMinMinor;
-    uint mMaxMajor;
-    uint mMaxMinor;
-    const(char)* mFileExtensions;
-}
-
 alias aiComponent = uint;
 enum : uint {
     aiComponent_NORMALS = 0x2,
@@ -265,6 +242,29 @@ uint aiComponent_TEXCOORDSn(uint n) {
     return (1u << (n+25u));
 }
 
+// importerdesc.h
+alias aiImporterFlags = int;
+enum {
+    aiImporterFlags_SupportTextFlavour = 0x1,
+    aiImporterFlags_SupportBinaryFlavour = 0x2,
+    aiImporterFlags_SupportCompressedFlavour = 0x4,
+    aiImporterFlags_LimitedSupport = 0x8,
+    aiImporterFlags_Experimental = 0x10,
+}
+
+struct aiImporterDesc {
+    const(char)* mName;
+    const(char)* mAuthor;
+    const(char)* mMaintainer;
+    const(char)* mComments;
+    uint mFlags;
+    uint mMinMajor;
+    uint mMinMinor;
+    uint mMaxMajor;
+    uint mMaxMinor;
+    const(char)* mFileExtensions;
+}
+
 // light.h
 alias aiLightSourceType = uint;
 enum : uint {
@@ -285,6 +285,7 @@ struct aiLight {
     aiColor3D mColorDiffuse;
     aiColor3D mColorSpecular;
     aiColor3D mColorAmbient;
+    float mAngleInnerCone;
     float mAngleOuterCone;
 }
 
@@ -551,16 +552,6 @@ struct aiQuaternion {
     float w, x, y, z;
 }
 
-// vector2.h
-struct aiVector2D {
-    float x, y;
-}
-
-// vector3.h
-align(1) struct aiVector3D {
-    float x, y, z;
-}
-
 // scene.h
 struct aiNode {
     aiString mName;
@@ -590,7 +581,7 @@ struct aiScene {
     uint mNumAnimations;
     aiAnimation** mAnimations;
     uint mNumTextures;
-    aiTexture** mTexture;
+    aiTexture** mTextures;
     uint mNumLights;
     aiLight** mLights;
     uint mNumCameras;
@@ -660,6 +651,16 @@ struct aiMemoryInfo {
     uint cameras;
     uint lights;
     uint total;
+}
+
+// vector2.h
+struct aiVector2D {
+    float x, y;
+}
+
+// vector3.h
+align(1) struct aiVector3D {
+    float x, y, z;
 }
 
 // version.h
