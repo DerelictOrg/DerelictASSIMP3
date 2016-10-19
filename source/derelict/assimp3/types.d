@@ -214,9 +214,12 @@ enum : string {
     AI_CONFIG_IMPORT_OGRE_MATERIAL_FILE = "IMPORT_OGRE_MATERIAL_FILE",
     AI_CONFIG_IMPORT_OGRE_TEXTURETYPE_FROM_FILENAME = "IMPORT_OGRE_TEXTURETYPE_FROM_FILENAME",
     AI_CONFIG_IMPORT_IFC_SKIP_SPACE_REPRESENTATIONS = "IMPORT_IFC_SKIP_SPACE_REPRESENTATIONS",
+    AI_CONFIG_ANDROID_JNI_ASSIMP_MANAGER_SUPPORT = "AI_CONFIG_ANDROID_JNI_ASSIMP_MANAGER_SUPPORT",
     AI_CONFIG_IMPORT_IFC_SKIP_CURVE_REPRESENTATIONS = "IMPORT_IFC_SKIP_CURVE_REPRESENTATIONS",
     AI_CONFIG_IMPORT_IFC_CUSTOM_TRIANGULATION = "IMPORT_IFC_CUSTOM_TRIANGULATION",
     AI_CONFIG_IMPORT_COLLADA_IGNORE_UP_DIRECTION = "IMPORT_COLLADA_IGNORE_UP_DIRECTION",
+    AI_CONFIG_IMPORT_COLLADA_INVERT_TRANSPARENCY = "IMPORT_COLLADA_INVERT_TRANSPARENCY",
+    AI_CONFIG_EXPORT_XFILE_64BIT = "EXPORT_XFILE_64BIT",
 }
 
 enum AI_SBBC_DEFAULT_MAX_BONES = 60;
@@ -230,29 +233,6 @@ enum {
     AI_UVTRAFO_ROTATION = 0x2,
     AI_UVTRAFO_TRANSLATION = 0x4,
     AI_UVTRAFO_ALL = AI_UVTRAFO_SCALING | AI_UVTRAFO_ROTATION | AI_UVTRAFO_TRANSLATION,
-}
-
-// importerdesc.h
-alias aiImporterFlags = int;
-enum {
-    aiImporterFlags_SupportTextFlavour = 0x1,
-    aiImporterFlags_SupportBinaryFlavour = 0x2,
-    aiImporterFlags_SupportCompressedFlavour = 0x4,
-    aiImporterFlags_LimitedSupport = 0x8,
-    aiImporterFlags_Experimental = 0x10,
-}
-
-struct aiImporterDesc {
-    const(char)* mName;
-    const(char)* mAuthor;
-    const(char)* mMaintainer;
-    const(char)* mComments;
-    uint mFlags;
-    uint mMinMajor;
-    uint mMinMinor;
-    uint mMaxMajor;
-    uint mMaxMinor;
-    const(char)* mFileExtensions;
 }
 
 alias aiComponent = uint;
@@ -278,6 +258,29 @@ uint aiComponent_TEXCOORDSn(uint n) {
     return (1u << (n+25u));
 }
 
+// importerdesc.h
+alias aiImporterFlags = int;
+enum {
+    aiImporterFlags_SupportTextFlavour = 0x1,
+    aiImporterFlags_SupportBinaryFlavour = 0x2,
+    aiImporterFlags_SupportCompressedFlavour = 0x4,
+    aiImporterFlags_LimitedSupport = 0x8,
+    aiImporterFlags_Experimental = 0x10,
+}
+
+struct aiImporterDesc {
+    const(char)* mName;
+    const(char)* mAuthor;
+    const(char)* mMaintainer;
+    const(char)* mComments;
+    uint mFlags;
+    uint mMinMajor;
+    uint mMinMinor;
+    uint mMaxMajor;
+    uint mMaxMinor;
+    const(char)* mFileExtensions;
+}
+
 // light.h
 alias aiLightSourceType = uint;
 enum : uint {
@@ -285,6 +288,7 @@ enum : uint {
     aiLightSourceType_DIRECTIONAL = 0x1,
     aiLightSourceType_POINT = 0x2,
     aiLightSourceType_SPOT = 0x3,
+    aiLightSourceType_AMBIENT = 0x4,
 }
 
 struct aiLight {
@@ -298,6 +302,7 @@ struct aiLight {
     aiColor3D mColorDiffuse;
     aiColor3D mColorSpecular;
     aiColor3D mColorAmbient;
+    float mAngleInnerCone;
     float mAngleOuterCone;
 }
 
@@ -515,6 +520,37 @@ struct aiMesh {
     aiAnimMesh** mAnimMeshes;
 }
 
+// metadata.h
+alias aiMetadataType = int;
+enum {
+    AI_BOOL = 0,
+    AI_INT = 1,
+    AI_UINT64 = 2,
+    AI_FLOAT = 3,
+    AI_AISTRING = 4,
+    AI_AIVECTOR3D = 5,
+}
+
+struct aiMetadataEntry {
+    aiMetadataType mType;
+    void* mData;
+}
+
+@nogc pure nothrow {
+    aiMetadataType GetAiType(bool) { return AI_BOOL; }
+    aiMetadataType GetAiType(int) { return AI_INT; }
+    aiMetadataType GetAiType(ulong) { return AI_UINT64; }
+    aiMetadataType GetAiType(float) { return AI_FLOAT; }
+    aiMetadataType GetAiType(aiString) { return AI_AISTRING; }
+    aiMetadataType GetAiType(aiVector3D) { return AI_AIVECTOR3D; }
+}
+
+struct aiMetadata {
+    uint mNumProperties;
+    aiString* mKeys;
+    aiMetadataEntry* mValues;
+}
+
 // postprocess.h
 alias aiPostProcessSteps = uint;
 enum : uint {
@@ -564,16 +600,6 @@ struct aiQuaternion {
     float w, x, y, z;
 }
 
-// vector2.h
-struct aiVector2D {
-    float x, y;
-}
-
-// vector3.h
-align(1) struct aiVector3D {
-    float x, y, z;
-}
-
 // scene.h
 struct aiNode {
     aiString mName;
@@ -583,6 +609,7 @@ struct aiNode {
     aiNode** mChildren;
     uint mNumMeshes;
     uint* mMeshes;
+    aiMetadata* mMetaData;
 }
 
 enum {
@@ -603,7 +630,7 @@ struct aiScene {
     uint mNumAnimations;
     aiAnimation** mAnimations;
     uint mNumTextures;
-    aiTexture** mTexture;
+    aiTexture** mTextures;
     uint mNumLights;
     aiLight** mLights;
     uint mNumCameras;
@@ -673,6 +700,16 @@ struct aiMemoryInfo {
     uint cameras;
     uint lights;
     uint total;
+}
+
+// vector2.h
+struct aiVector2D {
+    float x, y;
+}
+
+// vector3.h
+align(1) struct aiVector3D {
+    float x, y, z;
 }
 
 // version.h

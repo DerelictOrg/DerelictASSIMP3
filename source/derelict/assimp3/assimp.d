@@ -103,6 +103,11 @@ extern(C) @nogc nothrow {
     alias da_aiMultiplyMatrix3 = void function(aiMatrix3x3*,const(aiMatrix3x3)*);
     alias da_aiIdentityMatrix3 = void function(aiMatrix3x3*);
     alias da_aiIdentityMatrix4 = void function(aiMatrix4x4*);
+    alias da_aiGetImportFormatCount = size_t function();
+    alias da_aiGetImportFormatDescription = aiImporterDesc* function(size_t);
+
+    // importerdesc.h
+    alias da_aiGetImporterDesc = const(aiImporterDesc)* function(const(char)*);
 
     // material.h
     alias da_aiGetMaterialProperty = aiReturn function(const(aiMaterial)*,const(char)*,uint,uint,aiMaterialProperty**);
@@ -163,6 +168,8 @@ __gshared {
     da_aiMultiplyMatrix3 aiMultiplyMatrix3;
     da_aiIdentityMatrix3 aiIdentityMatrix3;
     da_aiIdentityMatrix4 aiIdentityMatrix4;
+    da_aiGetImportFormatCount aiGetImportFormatCount;
+    da_aiGetImportFormatDescription aiGetImportFormatDescription;
     da_aiGetMaterialProperty aiGetMaterialProperty;
     da_aiGetMaterialFloatArray aiGetMaterialFloatArray;
     da_aiGetMaterialIntegerArray aiGetMaterialIntegerArray;
@@ -223,6 +230,8 @@ class DerelictASSIMP3Loader : SharedLibLoader {
         bindFunc(cast(void**)&aiMultiplyMatrix3, "aiMultiplyMatrix3");
         bindFunc(cast(void**)&aiIdentityMatrix3, "aiIdentityMatrix3");
         bindFunc(cast(void**)&aiIdentityMatrix4, "aiIdentityMatrix4");
+        bindFunc(cast(void**)&aiGetImportFormatCount, "aiGetImportFormatCount");
+        bindFunc(cast(void**)&aiGetImportFormatDescription, "aiGetImportFormatDescription");
         bindFunc(cast(void**)&aiGetMaterialProperty, "aiGetMaterialProperty");
         bindFunc(cast(void**)&aiGetMaterialFloatArray, "aiGetMaterialFloatArray");
         bindFunc(cast(void**)&aiGetMaterialIntegerArray, "aiGetMaterialIntegerArray");
