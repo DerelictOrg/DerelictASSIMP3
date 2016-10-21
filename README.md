@@ -1,7 +1,7 @@
 DerelictASSIMP3
 ===============
 
-A dynamic binding to [Assimp3][1] version 3.2 for the D Programming Language.
+A dynamic binding to [Assimp3][1] version 3.3 for the D Programming Language.
 
 Please see the [Derelict documentation][2], for information on how to build DerelictASSIMP3 and load ASSIMP at run time. In the meantime, here's some sample code.
 
