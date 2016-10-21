@@ -63,6 +63,7 @@ extern(C) @nogc nothrow {
     // cexport.h
     alias da_aiGetExportFormatCount = size_t function();
     alias da_aiGetExportFormatDescription = aiExportFormatDesc* function(size_t);
+    alias da_aiReleaseExportFormatDescription = void function(const(aiExportFormatDesc)*);
     alias da_aiCopyScene = void function(const(aiScene)*,aiScene**);
     alias da_aiFreeScene = void function(const(aiScene)*);
     alias da_aiExportScene = aiReturn function(const(aiScene)*,const(char)*,const(char)*,uint );
@@ -130,6 +131,7 @@ extern(C) @nogc nothrow {
 __gshared {
     da_aiGetExportFormatCount aiGetExportFormatCount;
     da_aiGetExportFormatDescription aiGetExportFormatDescription;
+    da_aiReleaseExportFormatDescription aiReleaseExportFormatDescription;
     da_aiCopyScene aiCopyScene;
     da_aiFreeScene aiFreeScene;
     da_aiExportScene aiExportScene;
@@ -192,6 +194,7 @@ class DerelictASSIMP3Loader : SharedLibLoader {
     protected override void loadSymbols() {
         bindFunc(cast(void**)&aiGetExportFormatCount, "aiGetExportFormatCount");
         bindFunc(cast(void**)&aiGetExportFormatDescription, "aiGetExportFormatDescription");
+        bindFunc(cast(void**)&aiReleaseExportFormatDescription, "aiReleaseExportFormatDescription");
         bindFunc(cast(void**)&aiCopyScene, "aiCopyScene");
         bindFunc(cast(void**)&aiFreeScene, "aiFreeScene");
         bindFunc(cast(void**)&aiExportScene, "aiExportScene");

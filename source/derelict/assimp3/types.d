@@ -156,6 +156,29 @@ align(1) struct aiColor4D {
 }
 
 // config.h
+alias aiComponent = uint;
+enum : uint {
+    aiComponent_NORMALS = 0x2,
+    aiComponent_TANGENTS_AND_BITANGENTS = 0x4,
+    aiComponent_COLORS = 0x8,
+    aiComponent_TEXCOORDS = 0x10,
+    aiComponent_BONEWEIGHTS = 0x20,
+    aiComponent_ANIMATIONS = 0x40,
+    aiComponent_TEXTURES = 0x80,
+    aiComponent_LIGHTS = 0x100,
+    aiComponent_CAMERAS = 0x200,
+    aiComponent_MESHES = 0x400,
+    aiComponent_MATERIALS = 0x800,
+}
+
+uint aiComponent_COLORSn(uint n) {
+    return (1u << (n+20u));
+}
+
+uint aiComponent_TEXCOORDSn(uint n) {
+    return (1u << (n+25u));
+}
+
 enum : string {
     AI_CONFIG_GLOB_MEASURE_TIME = "GLOB_MEASURE_TIME",
     AI_CONFIG_IMPORT_NO_SKELETON_MESHES = "IMPORT_NO_SKELETON_MESHES",
@@ -185,6 +208,7 @@ enum : string {
     AI_CONFIG_IMPORT_FBX_READ_ALL_GEOMETRY_LAYERS = "IMPORT_FBX_READ_ALL_GEOMETRY_LAYERS",
     AI_CONFIG_IMPORT_FBX_READ_ALL_MATERIALS = "IMPORT_FBX_READ_ALL_MATERIALS",
     AI_CONFIG_IMPORT_FBX_READ_MATERIALS = "IMPORT_FBX_READ_MATERIALS",
+    AI_CONFIG_IMPORT_FBX_READ_TEXTURES = "AI_CONFIG_IMPORT_FBX_READ_TEXTURES",
     AI_CONFIG_IMPORT_FBX_READ_CAMERAS = "IMPORT_FBX_READ_CAMERAS",
     AI_CONFIG_IMPORT_FBX_READ_LIGHTS = "IMPORT_FBX_READ_LIGHTS",
     AI_CONFIG_IMPORT_FBX_READ_ANIMATIONS = "IMPORT_FBX_READ_ANIMATIONS",
@@ -218,7 +242,6 @@ enum : string {
     AI_CONFIG_IMPORT_IFC_SKIP_CURVE_REPRESENTATIONS = "IMPORT_IFC_SKIP_CURVE_REPRESENTATIONS",
     AI_CONFIG_IMPORT_IFC_CUSTOM_TRIANGULATION = "IMPORT_IFC_CUSTOM_TRIANGULATION",
     AI_CONFIG_IMPORT_COLLADA_IGNORE_UP_DIRECTION = "IMPORT_COLLADA_IGNORE_UP_DIRECTION",
-    AI_CONFIG_IMPORT_COLLADA_INVERT_TRANSPARENCY = "IMPORT_COLLADA_INVERT_TRANSPARENCY",
     AI_CONFIG_EXPORT_XFILE_64BIT = "EXPORT_XFILE_64BIT",
 }
 
@@ -233,29 +256,6 @@ enum {
     AI_UVTRAFO_ROTATION = 0x2,
     AI_UVTRAFO_TRANSLATION = 0x4,
     AI_UVTRAFO_ALL = AI_UVTRAFO_SCALING | AI_UVTRAFO_ROTATION | AI_UVTRAFO_TRANSLATION,
-}
-
-alias aiComponent = uint;
-enum : uint {
-    aiComponent_NORMALS = 0x2,
-    aiComponent_TANGENTS_AND_BITANGENTS = 0x4,
-    aiComponent_COLORS = 0x8,
-    aiComponent_TEXCOORDS = 0x10,
-    aiComponent_BONEWEIGHTS = 0x20,
-    aiComponent_ANIMATIONS = 0x40,
-    aiComponent_TEXTURES = 0x80,
-    aiComponent_LIGHTS = 0x100,
-    aiComponent_CAMERAS = 0x200,
-    aiComponent_MESHES = 0x400,
-    aiComponent_MATERIALS = 0x800,
-}
-
-uint aiComponent_COLORSn(uint n) {
-    return (1u << (n+20u));
-}
-
-uint aiComponent_TEXCOORDSn(uint n) {
-    return (1u << (n+25u));
 }
 
 // importerdesc.h
@@ -289,6 +289,7 @@ enum : uint {
     aiLightSourceType_POINT = 0x2,
     aiLightSourceType_SPOT = 0x3,
     aiLightSourceType_AMBIENT = 0x4,
+    aiLightSource_AREA = 0x5,
 }
 
 struct aiLight {
@@ -296,6 +297,7 @@ struct aiLight {
     aiLightSourceType mType;
     aiVector3D mPosition;
     aiVector3D mDirection;
+    aiVector3D mUp;
     float mAttenuationConstant;
     float mAttenuationLinear;
     float mAttenuationQuadratic;
@@ -304,6 +306,7 @@ struct aiLight {
     aiColor3D mColorAmbient;
     float mAngleInnerCone;
     float mAngleOuterCone;
+    aiVector2D mSize;
 }
 
 // material.h
